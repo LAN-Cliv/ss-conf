@@ -19,9 +19,14 @@ jobs:
 
       - name: Build
         run: |
+          pwd
           cd clashconf
+          pwd
           chmod 755 subconf.sh
           ./subconf.sh
+          pwd
+          ls
+          mv -f clashconf.ini ../conf/clashconf.ini
 
       - name: Commit and push changes
         run: |
