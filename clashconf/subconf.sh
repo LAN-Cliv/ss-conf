@@ -25,6 +25,7 @@ sed -i '0,/^;设置规则标志位/ { /^;设置规则标志位/ r '"$ruleset_fil
 sed -i "/custom_proxy_group=♻️ 自动选择\`url-test\`.\*\`http:\/\/www.gstatic.com\/generate_204\`300,,50/r $proxy_group_file" clashconf.ini
 
 # 替换原来的自动选择
-sed "s|custom_proxy_group=♻️ 自动选择\`url-test\`.*\`http://www.gstatic.com/generate_204\`300,,50|♻️ 自动选择\`url-test\`(^(?!.*(回家|home|back)).*)\`http://www.gstatic.com/generate_204\`300,,50|" clashconf.ini
+sed "s#custom_proxy_group=♻️ 自动选择\`url-test\`.*\`http://www.gstatic.com/generate_204\`300,,50#♻️ 自动选择\`url-test\`(^(?!.*(回家|home|back)).*)\`http://www.gstatic.com/generate_204\`300,,50#" clashconf.ini
+
 
 echo "配置已更新"
