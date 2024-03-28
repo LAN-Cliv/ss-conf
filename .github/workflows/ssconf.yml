@@ -3,6 +3,7 @@ name: ssconf update
 #运行模式
 on:
   #push: 
+  workflow_dispatch:
   schedule:
     #北京时间 每周三凌晨三点执行
     - cron: '0 19 * * 2' 
