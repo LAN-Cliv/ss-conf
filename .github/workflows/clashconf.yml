@@ -1,7 +1,7 @@
 name: clashconf update
 
 on:
-  push:
+  workflow_dispatch:
   schedule:
     # 每周三凌晨三点执行
     - cron: '0 19 * * 2'
