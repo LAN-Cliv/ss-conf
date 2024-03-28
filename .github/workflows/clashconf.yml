@@ -23,10 +23,6 @@ jobs:
           chmod 755 subconf.sh
           ./subconf.sh
 
-      - name: Check for changes
-        run: |
-          git diff --exit-code || { echo "No changes to commit"; exit 0; }
-
       - name: Commit and push changes
         run: |
           git config --global user.name 'GitHub Actions'
