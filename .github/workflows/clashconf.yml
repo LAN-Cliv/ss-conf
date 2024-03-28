@@ -23,6 +23,9 @@ jobs:
           chmod 755 subconf.sh
           ./subconf.sh
 
+      - name: Stage changes
+        run: git add clashconf/subconf.sh
+
       - name: Commit and push changes
         run: |
           git config --global user.name 'GitHub Actions'
