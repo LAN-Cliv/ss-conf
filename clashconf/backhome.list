@@ -1,3 +1,2 @@
-ruleset=🏎️ DIY直连,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/direct.list
-ruleset=🚄 DIY代理,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/proxy.list
-ruleset=✈️ DIY手动,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/select.list
+#回家规则
+IP-CIDR,192.168.8.0/24
