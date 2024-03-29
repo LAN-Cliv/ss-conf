@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 下载文件
-wget https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini -O clashconf.ini
+wget -p https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini -O clashconf.ini
 
 # 提取信息
 ruleset_file="ruleset.list"
