@@ -32,7 +32,18 @@ replacement_text="♻️ 自动选择\`url-test\`(^(?!.*(回家|home|back)).*)\`
 # 使用sed命令在文件中进行替换
 sed -i "s/${original_text}/${replacement_text}/g" "$ruleset_file"
 
-#给github raw加速
-sed -i 's|https://raw.githubusercontent|https://mirror.ghproxy.com/https://raw.githubusercontent|g' "$ruleset_file"
+# 定义替换函数
+replace_url() {
+    echo "$1" | sed "s|https://raw.githubusercontent.com|https://mirror.ghproxy.com|g"
+}
+
+# 原始文本
+original_text=$(cat "$ruleset_file")
+
+# 替换URL并保存到新文件
+replace_url "$original_text" > "$ruleset_file.new"
+
+# 将新文件内容覆盖到原始文件
+mv "$ruleset_file.new" "$ruleset_file"
 
 echo "配置已更新"
