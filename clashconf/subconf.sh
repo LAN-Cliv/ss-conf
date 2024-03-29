@@ -30,13 +30,13 @@ original_text="♻️ 自动选择\`url-test\`.*\`http"
 replacement_text="♻️ 自动选择\`url-test\`(^(?!.*(回家|home|back)).*)\`http"
 
 # 使用sed命令在文件中进行替换
-sed -i "s/${original_text}/${replacement_text}/g" "$ruleset_file"
+sed -i "s/${original_text}/${replacement_text}/g" clashconf.ini
 
 
 # 替换的字符串
 replace_str="https://mirror.ghproxy.com/https://raw.githubusercontent.com"
 
 # 使用 sed 直接在原文件上进行替换
-sed -i "s|https://raw.githubusercontent.com|${replace_str}|g" "$ruleset_file"
+sed -i "s|https://raw.githubusercontent.com|${replace_str}|g" clashconf.ini
 
 echo "配置已更新"
