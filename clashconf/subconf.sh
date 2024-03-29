@@ -37,6 +37,6 @@ sed -i "s/${original_text}/${replacement_text}/g" "$ruleset_file"
 replace_str="https://mirror.ghproxy.com/https://raw.githubusercontent.com"
 
 # 使用 sed 直接在原文件上进行替换
-sed -i "s|https://raw.githubusercontent.com|$replace_str|g" $ruleset_file
+sed -i "s|https://raw.githubusercontent.com|${replace_str}|g" "$ruleset_file"
 
 echo "配置已更新"
