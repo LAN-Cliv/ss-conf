@@ -1,2 +1,3 @@
 #强制代理规则
-DOMAIN-SUFFIX,sehuatang.org
+DOMAIN-KEYWORD,docker
+DOMAIN-KEYWORD,tmdb
