@@ -13,13 +13,10 @@ version_file="version.txt"
 # 读取当前版本号
 current_version=$(cat "$version_file")
 
-# 更新版本号
-next_version=$(awk '{print $1 + 0.1}' <<< "$current_version")
-
 # 添加版本号注释
-sed -i "1i #当前版本号为：${next_version}" clashconf.ini
+sed -i "1i #当前版本号为：${current_version}" clashconf.ini
 
-echo "配置已更新，当前版本号为：${next_version}"
+echo "配置已更新，当前版本号为：${current_version}"
 
 
 
