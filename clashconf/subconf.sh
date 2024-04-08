@@ -19,9 +19,6 @@ next_version=$(awk '{print $1 + 0.1}' <<< "$current_version")
 # 添加版本号注释
 sed -i "1i #当前版本号为：${next_version}" clashconf.ini
 
-# 更新版本号文件
-echo "$next_version" > "$version_file"
-
 echo "配置已更新，当前版本号为：${next_version}"
 
 
