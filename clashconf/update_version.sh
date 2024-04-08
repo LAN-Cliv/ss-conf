@@ -1,9 +1,5 @@
 #!/bin/bash
 
-pwd
-ls
-
-
 version_file="version.txt"
 
 # 检查版本文件是否存在
@@ -12,8 +8,8 @@ if [ ! -f "$version_file" ]; then
     exit 1
 fi
 
-# 读取版本号
-version=$(cat "$version_file")
+# 读取版本号并删除回车符
+version=$(cat "$version_file" | tr -d '\r')
 echo "当前版本号为：$version"
 
 # 将版本号从字符串转换为浮点数，并增加0.1
