@@ -1,6 +1,6 @@
 # 自用小火箭回家规则 && Clash自定义规则
 
-### 北京时间每周三凌晨三点自动更新上游规则
+## 北京时间每周三凌晨三点自动更新上游规则
 
 #### 使用办法 一
     https://mirror.ghproxy.com/https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/conf/diy.conf
