@@ -21,10 +21,8 @@ jobs:
         run: |
           cd clashconf
           #添加版本号
-          version_file="version.txt"
-          current_version=$(cat "$version_file")
-          next_version=$(awk '{print $1 + 0.1}' <<< "$current_version")
-          echo "$next_version" > "$version_file"
+          chmod 755 update_version.sh
+          ./update_version.sh
           #运行shell脚本
           chmod 755 subconf.sh
           ./subconf.sh
