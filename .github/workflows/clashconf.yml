@@ -21,6 +21,7 @@ jobs:
         run: |
           cd clashconf
           #添加版本号
+          ls
           chmod 755 update_version.sh
           ./update_version.sh
           #运行shell脚本
