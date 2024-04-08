@@ -9,12 +9,11 @@ version=$(cat "$version_file" | tr -d '\r')
 major=$(echo "$version" | cut -d. -f1)
 minor=$(echo "$version" | cut -d. -f2)
 
-# 将次版本号加上0.1，并四舍五入至小数点后一位
-minor=$(echo "$minor + 0.1" | bc)
-minor=$(printf "%.1f" "$minor")
+# 将次版本号加1
+minor=$((minor + 1))
 
-# 如果次版本号超过9，则主版本号加1，次版本号重置为0
-if (( $(echo "$minor >= 10" | bc -l) )); then
+# 如果次版本号达到10，主版本号加1，次版本号重置为0
+if [ "$minor" -ge 10 ]; then
     major=$((major + 1))
     minor=0
 fi
@@ -24,6 +23,5 @@ new_version="$major.$minor"
 
 # 将新版本号写入 version.txt
 echo "$new_version" > "$version_file"
-
 
 echo "版本号已更新为： $new_version"
