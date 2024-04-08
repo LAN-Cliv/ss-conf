@@ -19,14 +19,15 @@ jobs:
 
       - name: Build
         run: |
-          pwd
           cd clashconf
-          pwd
+          #添加版本号
+          version_file="version.txt"
+          current_version=$(cat "$version_file")
+          next_version=$(awk '{print $1 + 0.1}' <<< "$current_version")
+          echo "$next_version" > "$version_file"
+          #运行shell脚本
           chmod 755 subconf.sh
           ./subconf.sh
-          pwd
-          ls
-          rm -f ../conf/clashconf.ini
           mv -f clashconf.ini ../conf/clashconf.ini
 
       - name: Commit and push changes
