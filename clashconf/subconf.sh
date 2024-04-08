@@ -7,11 +7,8 @@ wget -p https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/AC
 ruleset_file="ruleset.list"
 proxy_group_file="proxy_group.list"
 
-# 如果版本号文件不存在，创建并设置版本号为1.0
+# 获取版本号文件
 version_file="version.txt"
-if [ ! -f "$version_file" ]; then
-    echo "1.0" > "$version_file"
-fi
 
 # 读取当前版本号
 current_version=$(cat "$version_file")
