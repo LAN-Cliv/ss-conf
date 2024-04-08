@@ -26,6 +26,7 @@ jobs:
           ./subconf.sh
           pwd
           ls
+          rm -f ../conf/clashconf.ini
           mv -f clashconf.ini ../conf/clashconf.ini
 
       - name: Commit and push changes
