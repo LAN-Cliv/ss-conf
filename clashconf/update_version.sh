@@ -2,18 +2,27 @@
 
 version_file="version.txt"
 
-# 检查版本文件是否存在
-if [ ! -f "$version_file" ]; then
-    echo "版本文件 $version_file 不存在"
-    exit 1
-fi
-
 # 读取版本号并删除回车符
 version=$(cat "$version_file" | tr -d '\r')
-echo "当前版本号为：$version"
 
-# 将版本号从字符串转换为浮点数，并增加0.1
-new_version=$(echo "$version + 0.1" | bc)
+# 将版本号拆分为主版本号和次版本号
+major=$(echo "$version" | cut -d. -f1)
+minor=$(echo "$version" | cut -d. -f2)
+
+# 将次版本号加上0.1
+minor=$(echo "$minor + 0.1" | bc)
+
+# 四舍五入至小数点后一位
+minor=$(printf "%.1f" "$minor")
+
+# 如果次版本号超过9，则主版本号加1，次版本号重置为0
+if (( $(echo "$minor >= 10" | bc -l) )); then
+    major=$((major + 1))
+    minor=0
+fi
+
+# 组装新版本号
+new_version="$major.$minor"
 
 # 将新版本号写入 version.txt
 echo "$new_version" > "$version_file"
