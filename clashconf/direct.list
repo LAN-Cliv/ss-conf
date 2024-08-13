@@ -45,3 +45,17 @@ mzstatic.com
 192.35.50.1/24
 198.183.17.1/24
 205.180.175.1/24
+
+# Pixman国内
+DOMAIN-SUFFIX,dnsany.com
+DOMAIN-SUFFIX,cmvideo.cn
+DOMAIN-SUFFIX,chinamobile.com
+DOMAIN-SUFFIX,mobaibox.com
+DOMAIN-SUFFIX,gitv.tv
+DOMAIN-SUFFIX,cctv.cn
+DOMAIN-SUFFIX,yangshipin.cn
+DOMAIN-SUFFIX,gcable.cn
+IP-CIDR,183.206.0.0/15
+IP-CIDR,223.5.5.5/32
+IP-CIDR,27.36.0.0/14
+IP-CIDR,183.238.66.0/24
