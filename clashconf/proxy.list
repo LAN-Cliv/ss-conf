@@ -2,3 +2,14 @@
 DOMAIN-KEYWORD,docker
 DOMAIN-KEYWORD,tmdb
 SRC-IP-CIDR,3.163.125.108/32
+
+# Pixman海外
+DOMAIN-SUFFIX,livednow.com
+DOMAIN-SUFFIX,orz-7.com
+DOMAIN-SUFFIX,4gtv.tv
+DOMAIN-SUFFIX,hinet.net
+DOMAIN-SUFFIX,ofiii.com
+DOMAIN-SUFFIX,googlevideo.com
+DOMAIN-SUFFIX,youtube.com
+DOMAIN-SUFFIX,mytvsuper.com
+DOMAIN-SUFFIX,thetvapp.to
