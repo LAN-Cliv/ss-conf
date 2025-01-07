@@ -1,4 +1,4 @@
 custom_proxy_group=🏎️ DIY直连`select`[]DIRECT`[]REJECT
 custom_proxy_group=🚄 DIY代理`select`[]🚀 节点选择`[]♻️ 自动选择`[]🇸🇬 狮城节点`[]🇭🇰 香港节点`[]🇨🇳 台湾节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点`[]🚀 手动切换`[]DIRECT
 custom_proxy_group=✈️ DIY手动`select`[]DIRECT`[]🚀 节点选择`[]🇺🇲 美国节点`[]🇭🇰 香港节点`[]🇨🇳 台湾节点`[]🇸🇬 狮城节点`[]🇯🇵 日本节点`[]🇰🇷 韩国节点`[]🚀 手动切换
-custom_proxy_group=🏃 快点回家`select`(回家|HOME|Backhome|home|内网)`[]REJECT`[]DIRECT
+custom_proxy_group=🏃 快点回家`select`(回家|HOME|Backhome|home|内网|Home)`[]REJECT`[]DIRECT
