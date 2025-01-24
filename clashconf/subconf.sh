@@ -31,7 +31,7 @@ sed -i "/custom_proxy_group=♻️ 自动选择\`url-test\`.\*\`http:\/\/www.gst
 
 # 定义原始文本和替换文本
 original_text="♻️ 自动选择\`url-test\`.*\`http"
-replacement_text="♻️ 自动选择\`url-test\`(^(?!.*(回家|home|back)).*)\`http"
+replacement_text="♻️ 自动选择\`url-test\`(^(?!.*(回家|home|Home|back)).*)\`http"
 
 # 使用sed命令在文件中进行替换
 sed -i "s/${original_text}/${replacement_text}/g" clashconf.ini
