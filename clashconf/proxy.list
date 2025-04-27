@@ -6,22 +6,22 @@ DOMAIN-KEYWORD,x.ai
 SRC-IP-CIDR,3.163.125.108/32
 
 ＃PT站点
-DOMAIN,cyanbug.net
-DOMAIN,pt.0ff.cc
-DOMAIN,ultrahd.net
-DOMAIN,hdfans.org
-DOMAIN,pt.btschool.club
-DOMAIN,hdarea.club
-DOMAIN,www.pttime.org
-DOMAIN,www.hddolby.com
-DOMAIN,ubits.club
-DOMAIN,pthome.net
-DOMAIN,hhanclub.top
-DOMAIN,pt.soulvoice.club
-DOMAIN,audiences.me
-DOMAIN,pt.keepfrds.com
-DOMAIN,kp.m-team.cc
-DOMAIN,ptchdbits.co
+#DOMAIN,cyanbug.net
+#DOMAIN,pt.0ff.cc
+#DOMAIN,ultrahd.net
+#DOMAIN,hdfans.org
+#DOMAIN,pt.btschool.club
+#DOMAIN,hdarea.club
+#DOMAIN,www.pttime.org
+#DOMAIN,www.hddolby.com
+#DOMAIN,ubits.club
+#DOMAIN,pthome.net
+#DOMAIN,hhanclub.top
+#DOMAIN,pt.soulvoice.club
+#DOMAIN,audiences.me
+#DOMAIN,pt.keepfrds.com
+#DOMAIN,kp.m-team.cc
+#DOMAIN,ptchdbits.co
 
 # Pixman海外
 DOMAIN-SUFFIX,livednow.com
