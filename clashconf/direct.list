@@ -3,6 +3,8 @@ DOMAIN-KEYWORD,video247.cn
 DOMAIN-KEYWORD,wxchatproxy.top
 #DOMAIN-KEYWORD,liviter.top
 DOMAIN-KEYWORD,deepseek.com
+DOMAIN-KEYWORD,url.v1.mk
+DOMAIN-KEYWORD,api.v1.mk
 IP-CIDR,47.245.42.17/32
 #获取IP网站
 DOMAIN-KEYWORD,ipecho.net
@@ -82,5 +84,6 @@ IP-CIDR,27.36.0.0/14
 IP-CIDR,183.238.66.0/24
 DOMAIN-SUFFIX,cctv.cn
 DOMAIN-SUFFIX,yangshipin.cn
+
 
 
