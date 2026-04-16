@@ -1,0 +1,35 @@
+# Amazon 购物商城 - 走代理
+# 2026-04-16
+
+DOMAIN-SUFFIX,amazon.com
+DOMAIN-SUFFIX,amazon.co.uk
+DOMAIN-SUFFIX,amazon.de
+DOMAIN-SUFFIX,amazon.fr
+DOMAIN-SUFFIX,amazon.it
+DOMAIN-SUFFIX,amazon.es
+DOMAIN-SUFFIX,amazon.nl
+DOMAIN-SUFFIX,amazon.se
+DOMAIN-SUFFIX,amazon.com.mx
+DOMAIN-SUFFIX,amazon.com.br
+DOMAIN-SUFFIX,amazon.ca
+DOMAIN-SUFFIX,amazon.com.au
+DOMAIN-SUFFIX,amazon.co.jp
+DOMAIN-SUFFIX,amazon.in
+DOMAIN-SUFFIX,amazon.sg
+DOMAIN-SUFFIX,amazon.co.nz
+DOMAIN-SUFFIX,amazon.com.tr
+DOMAIN-SUFFIX,amazon.ae
+DOMAIN-SUFFIX,amazon.sa
+DOMAIN-SUFFIX,amazon.com.tw
+DOMAIN-SUFFIX,amazon.com.hk
+DOMAIN-SUFFIX,amazon.cn
+
+# CDN / 购物相关
+DOMAIN-SUFFIX,amazon-adsystem.com
+DOMAIN-SUFFIX,amazonads.com
+DOMAIN-SUFFIX,ssl-img.amazon.com
+DOMAIN-SUFFIX,media-amazon.com
+DOMAIN-SUFFIX,images-na.ssl-images-amazon.com
+DOMAIN-SUFFIX,images-eu.ssl-images-amazon.com
+DOMAIN-SUFFIX,ir.amazon-adsystem.com
+DOMAIN-SUFFIX,flashtalking.com
