@@ -20,9 +20,7 @@ DOMAIN-SUFFIX,amazon.co.nz
 DOMAIN-SUFFIX,amazon.com.tr
 DOMAIN-SUFFIX,amazon.ae
 DOMAIN-SUFFIX,amazon.sa
-DOMAIN-SUFFIX,amazon.com.tw
-DOMAIN-SUFFIX,amazon.com.hk
-DOMAIN-SUFFIX,amazon.cn
+
 
 # CDN / 购物相关
 DOMAIN-SUFFIX,amazon-adsystem.com
