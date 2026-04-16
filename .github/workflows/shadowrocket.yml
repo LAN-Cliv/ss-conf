@@ -1,0 +1,52 @@
+name: Shadowrocket CI
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 北京时间每周三凌晨3点 = UTC前一天的19点
+    - cron: '0 19 * * 3'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: |
+          # 确保输出目录存在
+          mkdir -p dist shadowrocket/output
+
+      - name: Update version
+        run: |
+          cd shadowrocket
+          chmod +x update_version.sh
+          ./update_version.sh
+
+      - name: Build Shadowrocket config
+        run: |
+          cd shadowrocket
+          chmod +x script.sh
+          ./script.sh
+
+      - name: Verify output
+        run: |
+          if [[ ! -s "dist/shadowrocket.conf" ]]; then
+            echo "ERROR: dist/shadowrocket.conf is empty or missing"
+            exit 1
+          fi
+          echo "Output size: $(wc -l < dist/shadowrocket.conf) lines"
+
+      - name: Commit and push
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add dist/shadowrocket.conf shadowrocket/version.txt
+          git diff --cached --stat
+          git commit -m "[CI] Shadowrocket config update $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push
