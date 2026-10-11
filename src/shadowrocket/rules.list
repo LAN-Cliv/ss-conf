@@ -1,0 +1,5 @@
+# Shadowrocket 自定义规则（构建时注入到 [Rule] 段首，优先级最高）
+DOMAIN-KEYWORD,liviter.top,BACKHOME
+DOMAIN-KEYWORD,wxchatproxy.top,DIRECT
+DOMAIN-KEYWORD,fileball.app,DIRECT
+IP-CIDR,192.168.50.0/24,BACKHOME

@@ -1,6 +1,0 @@
-ruleset=🏎️ DIY直连,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/direct.list
-ruleset=🚄 DIY代理,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/proxy.list
-ruleset=✈️ DIY手动,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/select.list
-ruleset=🏃 快点回家,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/backhome.list
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/PrivateTracker.list
-ruleset=🛍️ Amazon,https://raw.githubusercontent.com/LAN-Cliv/ss-conf/main/clashconf/amazon.list

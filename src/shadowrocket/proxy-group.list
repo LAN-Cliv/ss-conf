@@ -1,0 +1,5 @@
+# Shadowrocket 自定义策略组（构建时注入到 [Proxy Group] 段首）
+#
+# policy-regex-filter 按节点名筛选出"回家"用的 WireGuard/内网节点，
+# interval=86400 表示每天测一次可用性。
+BACKHOME = select,interval=86400,timeout=5,url=http://www.gstatic.com/generate_204,policy-regex-filter=内网|wire|liviter

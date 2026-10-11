@@ -1,3 +1,9 @@
+# Clash 自定义策略组（构建时注入到上游 "♻️ 自动选择" 策略组之后）
+#
+# 语法：custom_proxy_group=组名`策略类型`[]可选成员...
+#   - 组名需与 ruleset.list 中引用的名字完全一致
+#   - select = 手动选择；url-test / fallback 为自动策略
+#   - `(正则)` 形式的成员表示按节点名正则筛选订阅节点（如"快点回家"组）
 custom_proxy_group=🏎️ DIY直连`select`[]DIRECT`[]REJECT
 custom_proxy_group=🚄 DIY代理`select`[]🚀 节点选择`[]♻️ 自动选择`[]🇸🇬 狮城节点`[]🇭🇰 香港节点`[]🇨🇳 台湾节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点`[]🚀 手动切换`[]DIRECT
 custom_proxy_group=✈️ DIY手动`select`[]DIRECT`[]🚀 节点选择`[]🇺🇲 美国节点`[]🇭🇰 香港节点`[]🇨🇳 台湾节点`[]🇸🇬 狮城节点`[]🇯🇵 日本节点`[]🇰🇷 韩国节点`[]🚀 手动切换

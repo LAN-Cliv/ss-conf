@@ -1,0 +1,10 @@
+# 统一换行符：本仓库的 .sh/.list/.ini 都会被 sed/awk 逐行处理，
+# CRLF 混入会让锚点匹配和规则解析出问题，一律强制 LF。
+* text=auto eol=lf
+
+# Windows 专属脚本例外
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# conf/ 下的产物由 CI 自动生成，GitHub 语言统计与 PR diff 中忽略
+conf/** linguist-generated

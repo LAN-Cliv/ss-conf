@@ -1,0 +1,79 @@
+# 自动更新订阅配置
+#
+# 每周三北京时间 03:00（UTC 19:00 周二）运行一次，也支持在 Actions 页面手动触发。
+# 与旧版两个 workflow 的区别：
+#   1. 单 workflow 单 job 串行构建两个订阅 —— 消除双 job 同时 push 的竞态
+#   2. 构建产物无变化时跳过提交 —— 版本号不再空转
+#   3. 每个订阅只在其内容变化时独立提升版本号
+name: auto update
+
+on:
+  workflow_dispatch:
+  schedule:
+    # UTC 19:00 周二 = 北京时间周三 03:00
+    - cron: '0 19 * * 2'
+
+# 防止手动触发与定时任务重叠运行
+concurrency:
+  group: auto-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 用当前版本号试构建（用于变更检测）
+        run: |
+          chmod +x scripts/*.sh
+          ./scripts/build-clash.sh "$(cat versions/clash.txt)"
+          ./scripts/build-shadowrocket.sh "$(cat versions/shadowrocket.txt)"
+
+      - name: 检测各订阅是否有实际变化
+        id: changes
+        run: |
+          if git diff --quiet -- conf/clashconf.ini; then
+            echo "clash=no"   >> "$GITHUB_OUTPUT"
+            echo "clash 订阅无变化"
+          else
+            echo "clash=yes"  >> "$GITHUB_OUTPUT"
+          fi
+          if git diff --quiet -- conf/diy.conf; then
+            echo "shadowrocket=no" >> "$GITHUB_OUTPUT"
+            echo "shadowrocket 订阅无变化"
+          else
+            echo "shadowrocket=yes" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 变化的订阅提升版本号并重建
+        if: steps.changes.outputs.clash == 'yes' || steps.changes.outputs.shadowrocket == 'yes'
+        run: |
+          if [ "${{ steps.changes.outputs.clash }}" = "yes" ]; then
+            V="$(./scripts/bump-version.sh versions/clash.txt)"
+            ./scripts/build-clash.sh "$V"
+            echo "CLASH_V=$V" >> "$GITHUB_ENV"
+            echo "clash 版本 → $V"
+          fi
+          if [ "${{ steps.changes.outputs.shadowrocket }}" = "yes" ]; then
+            V="$(./scripts/bump-version.sh versions/shadowrocket.txt)"
+            ./scripts/build-shadowrocket.sh "$V"
+            echo "SR_V=$V" >> "$GITHUB_ENV"
+            echo "shadowrocket 版本 → $V"
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.clash == 'yes' || steps.changes.outputs.shadowrocket == 'yes'
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add conf/ versions/
+          # commit message 携带版本号，方便 git log 回溯每次更新了什么
+          git commit -m "chore(auto): clash v${CLASH_V:-unchanged} / shadowrocket v${SR_V:-unchanged}"
+          git push

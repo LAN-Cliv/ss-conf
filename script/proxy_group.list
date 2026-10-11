@@ -1,1 +1,0 @@
-BACKHOME = select,interval=86400,timeout=5,url=http://www.gstatic.com/generate_204,policy-regex-filter=内网|wire|liviter

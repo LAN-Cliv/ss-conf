@@ -1,0 +1,38 @@
+#强制代理规则
+DOMAIN-KEYWORD,docker
+DOMAIN-KEYWORD,tmdb
+DOMAIN-KEYWORD,grok
+DOMAIN-KEYWORD,x.ai
+# 原为 SRC-IP-CIDR（匹配客户端源IP，公网地址永远无法命中，属失效规则），2026-10-11 改为 IP-CIDR
+IP-CIDR,3.163.125.108/32
+
+# PT 站点（走直连，保证 BT 上传下载流量不被代理）
+#DOMAIN,cyanbug.net
+#DOMAIN,pt.0ff.cc
+#DOMAIN,ultrahd.net
+#DOMAIN,hdfans.org
+#DOMAIN,pt.btschool.club
+#DOMAIN,hdarea.club
+#DOMAIN,www.pttime.org
+#DOMAIN,www.hddolby.com
+#DOMAIN,ubits.club
+#DOMAIN,pthome.net
+#DOMAIN,hhanclub.top
+#DOMAIN,pt.soulvoice.club
+#DOMAIN,audiences.me
+#DOMAIN,pt.keepfrds.com
+#DOMAIN,kp.m-team.cc
+#DOMAIN,ptchdbits.co
+
+# Pixman海外
+DOMAIN-SUFFIX,livednow.com
+DOMAIN-SUFFIX,orz-7.com
+DOMAIN-SUFFIX,4gtv.tv
+DOMAIN-SUFFIX,hinet.net
+DOMAIN-SUFFIX,ofiii.com
+DOMAIN-SUFFIX,googlevideo.com
+DOMAIN-SUFFIX,youtube.com
+DOMAIN-SUFFIX,mytvsuper.com
+DOMAIN-SUFFIX,thetvapp.to
+DOMAIN-SUFFIX,pathofexile.com
+DOMAIN-SUFFIX,riolu.me
