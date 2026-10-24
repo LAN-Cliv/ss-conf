@@ -9,6 +9,7 @@
 # 流程：下载 ACL4SSR 上游模板
 #       → 在 ";设置规则标志位" 首个锚点后注入自定义 ruleset 引用
 #       → 在 "♻️ 自动选择" 策略组后注入自定义策略组
+#       → 按 src/clash/group-override.list 整行覆盖上游同名策略组
 #       → 给 "♻️ 自动选择" 加排除正则（回家/内网节点不参与自动测速）
 #       → 校验关键内容后写入版本号
 set -euo pipefail
@@ -35,12 +36,21 @@ insert_after_first "$WORK/base.ini" '^;设置规则标志位' "$SRC/ruleset.list
 log "注入自定义策略组（src/clash/proxy-group.list）..."
 insert_after_first "$WORK/base.ini" '^custom_proxy_group=♻️ 自动选择' "$SRC/proxy-group.list"
 
+log "覆盖上游策略组（src/clash/group-override.list）..."
+override_group_lines "$WORK/base.ini" "$SRC/group-override.list"
+# 逐条固定字符串精确匹配（grep -F，规避 emoji 正则问题），任何一条未生效即失败。
+while IFS= read -r line; do
+    case "$line" in ''|'#'*) continue ;; esac
+    grep -Fq -- "$line" "$WORK/base.ini" ||
+        die "产物校验失败：策略组覆盖未生效：$line"
+done < "$SRC/group-override.list"
+
 log "「♻️ 自动选择」排除回家/内网节点（与旧版行为一致）..."
 # 上游正则 .* 会把回家用的 wireguard/内网节点也卷进自动测速，
 # 这里沿用旧版排除正则：节点名含 回家|内网|home|Home|back 的不参与。
-sed -i \
+sed -i.bak \
     's#^custom_proxy_group=♻️ 自动选择`url-test`.*`http#custom_proxy_group=♻️ 自动选择`url-test`(^(?!.*(回家|内网|home|Home|back)).*)`http#' \
-    "$WORK/base.ini"
+    "$WORK/base.ini" && rm -f "$WORK/base.ini.bak"
 
 log "校验产物完整性..."
 # 注意：断言 pattern 刻意不含 4 字节 emoji（非 BMP 字符）——
@@ -54,8 +64,10 @@ assert_not_contains "$WORK/base.ini" 'src/clash/'                          '残�
 
 log "写入版本号：$VERSION"
 # 与旧版格式保持一致：首行 "#当前版本号为：x.y"
-sed -i "1i #当前版本号为：${VERSION}" "$WORK/base.ini"
+# 不用 sed 1i：BSD/GNU sed 的 insert 语法不兼容，printf 前置即可
+{ printf '#当前版本号为：%s\n' "$VERSION"; cat "$WORK/base.ini"; } > "$WORK/final.ini"
+mv "$WORK/final.ini" "$WORK/base.ini"
 
 mkdir -p "$(dirname "$OUT")"
 mv "$WORK/base.ini" "$OUT"
-log "已生成 $OUT（v$VERSION）"
+log "已生成 ${OUT}（v${VERSION}）"

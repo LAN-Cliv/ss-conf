@@ -18,7 +18,7 @@ version="$(tr -d '\r' < "$FILE")"
 major="${version%%.*}"
 minor="${version##*.}"
 if [[ ! "$major" =~ ^[0-9]+$ || ! "$minor" =~ ^[0-9]+$ ]]; then
-    echo "版本号格式非法：$version（期望 主.次）" >&2
+    echo "版本号格式非法：${version}（期望 主.次）" >&2
     exit 1
 fi
 

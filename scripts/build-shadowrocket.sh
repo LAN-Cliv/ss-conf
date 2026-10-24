@@ -30,7 +30,7 @@ log "下载上游模板：$UPSTREAM"
 fetch "$UPSTREAM" "$WORK/base.conf"
 
 log "skip-proxy / tun-excluded-routes 剔除 192.168.0.0/16（保证回家流量进隧道）..."
-sed -i 's/192\.168\.0\.0\/16,//g' "$WORK/base.conf"
+sed -i.bak 's/192\.168\.0\.0\/16,//g' "$WORK/base.conf" && rm -f "$WORK/base.conf.bak"
 assert_not_contains "$WORK/base.conf" '192\.168\.0\.0/16' 'skip-proxy 残留内网段'
 
 log "注入自定义规则/策略组/Host..."
@@ -45,8 +45,10 @@ assert_contains "$WORK/base.conf" '^BACKHOME = select'                  'BACKHOM
 assert_contains "$WORK/base.conf" '^\*\.liviter\.top=server:223\.5\.5\.5' 'liviter Host 解析'
 
 log "写入版本号：$VERSION"
-sed -i "1i #当前版本号为：${VERSION}" "$WORK/base.conf"
+# 不用 sed 1i：BSD/GNU sed 的 insert 语法不兼容，printf 前置即可
+{ printf '#当前版本号为：%s\n' "$VERSION"; cat "$WORK/base.conf"; } > "$WORK/final.conf"
+mv "$WORK/final.conf" "$WORK/base.conf"
 
 mkdir -p "$(dirname "$OUT")"
 mv "$WORK/base.conf" "$OUT"
-log "已生成 $OUT（v$VERSION）"
+log "已生成 ${OUT}（v${VERSION}）"

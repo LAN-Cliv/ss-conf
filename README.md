@@ -51,7 +51,8 @@ ss-conf/
 ├── src/                           # 构建时【内联】进订阅的片段（改完需触发 CI 重新构建）
 │   ├── clash/
 │   │   ├── ruleset.list           #   自定义 ruleset 引用（含在线 URL）
-│   │   └── proxy-group.list       #   自定义策略组定义
+│   │   ├── proxy-group.list       #   自定义策略组定义
+│   │   └── group-override.list    #   覆盖上游同名策略组（整行替换）
 │   └── shadowrocket/
 │       ├── rules.list             #   注入 [Rule] 段首（优先级最高）
 │       ├── proxy-group.list       #   注入 [Proxy Group] 段首
@@ -113,6 +114,24 @@ custom_proxy_group=🎬 Netflix`select`[]🚀 节点选择`[]♻️ 自动选择
 ### 触发构建
 
 push 到 main 后在 GitHub Actions 手动触发 `auto update`（或等到周三凌晨自动构建）。构建脚本会校验锚点与注入结果，任何一步失败都会中断而不会提交残缺配置。
+
+---
+
+## 如何修改上游自带的策略组
+
+`🚀 节点选择` 这类组定义在 ACL4SSR 上游模板里，不在本仓库 `src/` 中。要改它们，编辑 `src/clash/group-override.list`：每行写一条**完整**的 `custom_proxy_group` 定义，构建时按组名整行替换上游同名组。
+
+例如给 `🚀 节点选择` 加入自建节点（该组当前的实际定义）：
+
+```plaintext
+custom_proxy_group=🚀 节点选择`select`[]♻️ 自动选择`[]🛠️ 自建节点`[]🇭🇰 香港节点`[]🇨🇳 台湾节点`[]🇸🇬 狮城节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点`[]🚀 手动切换`[]DIRECT
+```
+
+要点：
+
+- 清单里**没写的组保持上游原样**；写的是整行最终结果，不是增量补丁。
+- 组名必须与上游完全一致，拼错或上游改名/删组都会让构建**直接报错**（不会静默失效）。
+- 新增自定义组请走 `src/clash/proxy-group.list`（见上一节），这里只用于改上游已有的组。
 
 ---
 

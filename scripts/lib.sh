@@ -44,10 +44,11 @@ fetch() {
         # -f：4xx/5xx 视为失败；-sS：静默但保留错误；超时防止 CI 卡死
         if curl -fsSL --connect-timeout 8 --max-time 120 "$url" -o "$dest" &&
             [ -s "$dest" ]; then
-            log "下载成功（通道 $i）：$url"
+            # ${i} 花括号必须：$i 后紧跟全角字符时，bash 3.2 会把全角字符并入变量名
+            log "下载成功（通道 ${i}）：$url"
             return 0
         fi
-        warn "下载失败（通道 $i），尝试下一通道：$url"
+        warn "下载失败（通道 ${i}），尝试下一通道：$url"
     done
     die "全部下载通道均失败：$src"
 }
@@ -59,18 +60,54 @@ fetch() {
 assert_contains() {
     local file="$1" pattern="$2" desc="$3"
     grep -q -- "$pattern" "$file" ||
-        die "产物校验失败：$file 中未找到「$desc」（模式：$pattern）"
+        die "产物校验失败：$file 中未找到「${desc}」（模式：${pattern}）"
 }
 
 # assert_not_contains <文件> <grep 模式> <说明>
 assert_not_contains() {
     local file="$1" pattern="$2" desc="$3"
     grep -q -- "$pattern" "$file" &&
-        die "产物校验失败：$file 中不应存在「$desc」（模式：$pattern）"
+        die "产物校验失败：$file 中不应存在「${desc}」（模式：${pattern}）"
     return 0
 }
 
 # ---------------------------------------------------------------- 注入
+
+# override_group_lines <目标文件> <覆盖清单>
+#   覆盖清单中每条非注释、非空行必须是一条完整的 custom_proxy_group 定义。
+#   构建时按组名（custom_proxy_group= 之后、首个反引号之前）在目标文件中
+#   找到同名行并整行替换——用于改写上游模板自带的策略组（如 🚀 节点选择），
+#   让"改上游组"变成改一行清单，不用动构建脚本。
+#   清单里有、上游模板里没有的组名 → 直接报错退出，防止拼错组名导致覆盖静默失效。
+override_group_lines() {
+    local target="$1" overrides="$2" tmp
+    [ -s "$overrides" ] || return 0
+    tmp="$(mktemp)"
+    # 用 awk 而非 sed：正反引号、emoji 组名无需转义，且 BSD/GNU sed 方言不兼容。
+    if ! awk '
+        FNR == NR {
+            if ($0 == "" || $0 ~ /^#/) next
+            g = $0; sub(/^custom_proxy_group=/, "", g); sub(/`.*/, "", g)
+            ov[g] = $0
+            next
+        }
+        /^custom_proxy_group=/ {
+            g = $0; sub(/^custom_proxy_group=/, "", g); sub(/`.*/, "", g)
+            if (g in ov) { print ov[g]; seen[g] = 1; next }
+        }
+        { print }
+        END {
+            bad = 0
+            for (g in ov)
+                if (!(g in seen)) { printf "上游模板中不存在组：%s\n", g > "/dev/stderr"; bad = 1 }
+            exit bad
+        }
+    ' "$overrides" "$target" > "$tmp"; then
+        rm -f "$tmp"
+        die "策略组覆盖失败：覆盖清单中的组在上游模板中未找到（见上方列表）"
+    fi
+    mv "$tmp" "$target"
+}
 
 # insert_after_first <目标文件> <锚点ERE> <待插入文件>
 #   在目标文件中【首次】匹配锚点 ERE 的行之后插入另一文件的全部内容，原位修改。
